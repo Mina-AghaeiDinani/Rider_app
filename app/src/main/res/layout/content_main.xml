@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/app_bar_main">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgGetReady"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/bicycle" />
+    <TextView
+        android:id="@+id/tvReady"
+        android:layout_below="@+id/imgGetReady"
+        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="20sp"
+        android:layout_marginTop="2dp"
+        android:text="Ready to work!"
+        android:textColor="@color/colorBlack"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgRest"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imgGetReady"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/relax2" />
+    <TextView
+        android:id="@+id/tvRest"
+        android:layout_below="@+id/imgRest"
+        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="17sp"
+        android:layout_marginTop="2dp"
+        android:text="Take a rest"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
+        android:layout_height="wrap_content" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgOrders"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imgGetReady"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="55dp"
+        android:src="@drawable/orders" />
+    <TextView
+        android:id="@+id/tvOrders"
+        android:layout_below="@+id/imgOrders"
+        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="17sp"
+        android:layout_marginTop="2dp"
+        android:text="Pending orders"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
