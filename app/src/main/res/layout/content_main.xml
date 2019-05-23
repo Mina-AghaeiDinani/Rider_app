@@ -6,22 +6,24 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
+
     tools:showIn="@layout/app_bar_main">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgGetReady"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
         android:src="@drawable/bicycle" />
     <TextView
         android:id="@+id/tvReady"
         android:layout_below="@+id/imgGetReady"
         android:layout_width="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:layout_marginTop="2dp"
         android:text="Ready to work!"
+        android:enabled="false"
         android:textColor="@color/colorBlack"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content" />
@@ -33,7 +35,7 @@
         android:layout_below="@+id/imgGetReady"
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/relax2" />
     <TextView
         android:id="@+id/tvRest"
@@ -54,7 +56,7 @@
         android:layout_height="80dp"
         android:layout_below="@+id/imgGetReady"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="55dp"
         android:src="@drawable/orders" />
     <TextView
@@ -68,6 +70,25 @@
         android:textColor="@color/colorBlack"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="35dp"
+        android:layout_height="wrap_content" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgReport"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imgRest"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/re" />
+    <TextView
+        android:id="@+id/tvReport"
+        android:layout_below="@+id/imgReport"
+        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="17sp"
+        android:layout_marginTop="2dp"
+        android:text="Reports"
+        android:textColor="@color/colorBlack"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content" />
 
 </RelativeLayout>

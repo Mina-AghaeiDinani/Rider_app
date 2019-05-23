@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.example.deliveryman.helper.FirebaseHelper;
 
 import java.util.List;
 
@@ -35,12 +36,13 @@ public class MainActivity extends AppCompatActivity
     de.hdodenhof.circleimageview.CircleImageView imgProfileNav;
     de.hdodenhof.circleimageview.CircleImageView imgGetReady;
     de.hdodenhof.circleimageview.CircleImageView imgRest;
-    de.hdodenhof.circleimageview.CircleImageView imgOrders;
+    de.hdodenhof.circleimageview.CircleImageView imgPendingOrders;
     DatabaseReference databaseRefLocation;
     TextView txtFullNameNav;
     //to do logout we need it
     private FirebaseAuth firebaseAuth;
     private RecyclerView mRecyclerView;
+    private FirebaseHelper firebaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +58,13 @@ public class MainActivity extends AppCompatActivity
                 .child(firebaseAuth.getCurrentUser().getUid());
         //going to get ready
         imgGetReady=findViewById(R.id.imgGetReady);
+        final TextView tvGetReady=findViewById(R.id.tvReady);
         imgGetReady.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imgGetReady.setEnabled(false);
+                tvGetReady.setText("You are enable");
+                imgRest.setEnabled(true);
                 startActivity(new Intent(MainActivity.this, MapActivity.class));
             }
         });
@@ -67,14 +73,28 @@ public class MainActivity extends AppCompatActivity
         imgRest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tvGetReady.setText("Ready to work");
 
-                firebaseAuth.signOut();
+                //firebaseHelper.deleteDriver();
+                imgGetReady.setEnabled(true);
+                Toast.makeText(MainActivity.this,"Have a good day",Toast.LENGTH_LONG).show();
                 databaseRefLocation.removeValue();
+                firebaseAuth.signOut();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
         });
-        // Handle the log out
+        // Pending Orders
+        imgPendingOrders=findViewById(R.id.imgOrders);
+        imgPendingOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,PendingCookingOrdersActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        //..............
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

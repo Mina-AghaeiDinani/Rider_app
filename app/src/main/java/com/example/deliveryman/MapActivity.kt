@@ -110,7 +110,7 @@ class MapActivity : AppCompatActivity() {
                 super.onLocationResult(locationResult)
                 if (locationResult!!.lastLocation == null) return
                 val latLng = LatLng(locationResult.lastLocation.latitude, locationResult.lastLocation.longitude)
-                Log.e("Location", latLng.latitude.toString() + " , " + latLng.longitude)
+                Log.e("LocationOfPlaces", latLng.latitude.toString() + " , " + latLng.longitude)
                 if (locationFlag) {
                     locationFlag = false
                     animateCamera(latLng)
@@ -139,7 +139,7 @@ class MapActivity : AppCompatActivity() {
         if (requestCode == MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
             val value = grantResults[0]
             if (value == PERMISSION_DENIED) {
-                Toast.makeText(this, "Location Permission denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "LocationOfPlaces Permission denied", Toast.LENGTH_SHORT).show()
                 finish()
             } else if (value == PERMISSION_GRANTED) requestLocationUpdate()
         }
