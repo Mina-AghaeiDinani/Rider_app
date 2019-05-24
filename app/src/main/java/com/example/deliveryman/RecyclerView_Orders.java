@@ -113,9 +113,9 @@ public class RecyclerView_Orders {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
-                    latA = locationOfPlaces.getLat();
+                    //latA = locationOfPlaces.getLat();
                     //lngA = locationOfPlaces.getLng();
-                    mDistance.setText("" + latA);
+                   // mDistance.setText("" + latA);
 
                 }
 
@@ -133,7 +133,7 @@ public class RecyclerView_Orders {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
-                    latB = locationOfPlaces.getLat();
+                    //latB = locationOfPlaces.getLat();
                     // lngB=locationOfPlaces.getLng();
 
                 }
@@ -143,7 +143,7 @@ public class RecyclerView_Orders {
                     // ...
                 }
             });
-            mFee.setText("" + latB);
+           // mFee.setText("" + latB);
             //Compute distance between customer and restaurant
             // distance=CalculationByDistance(latA,lngA,latB,lngB);
             // double latDiff = latB - latA;

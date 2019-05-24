@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity
                 imgGetReady.setEnabled(false);
                 tvGetReady.setText("You are enable");
                 imgRest.setEnabled(true);
+               // startActivityForResult(new Intent(MainActivity.this, MapActivity.class));
                 startActivity(new Intent(MainActivity.this, MapActivity.class));
             }
         });
