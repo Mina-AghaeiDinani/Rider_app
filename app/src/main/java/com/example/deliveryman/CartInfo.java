@@ -9,6 +9,7 @@ public class CartInfo {
     private String status, orderedId;
     private String totalPrice, totalItems;
 
+
     public CartInfo() {
         //Constructor , it is needed
     }

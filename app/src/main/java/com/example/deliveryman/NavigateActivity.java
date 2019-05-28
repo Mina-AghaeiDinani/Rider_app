@@ -1,12 +1,15 @@
 package com.example.deliveryman;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +48,32 @@ import com.example.deliveryman.directionHelper.TaskLoadedCallback;
 import com.squareup.picasso.Picasso;
 
 public class NavigateActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
-    private String someVariable;
+    //Navigation
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.sign_out:
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(NavigateActivity.this,LoginActivity.class));
+                    return true;
+                case R.id.profile:
+                    startActivity(new Intent(NavigateActivity.this,RidersProfileActivity.class));
+                    finish();
+                    return true;
+                case R.id.menu:
+                    Intent  intent = new Intent(NavigateActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+            }
+            return false;
+        }
+    };
+    //................
     private static String key, customerId, restaurantId,
             restaurantImage,customerImage
             ,restaurantName,customerName
@@ -67,11 +96,16 @@ public class NavigateActivity extends AppCompatActivity implements OnMapReadyCal
     //Views
     TextView tvRestaurantName,tvCustomerName,tvDistance,tvFee,tvDate,tvTime;
     ImageView imgCustomer,imgRestaurant;
-
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigate);
+        //.....
+        firebaseAuth= FirebaseAuth.getInstance();
+        //Navigation
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_Navigate);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //Defines Views
         tvRestaurantName=findViewById(R.id.tvResName);
         tvCustomerName=findViewById(R.id.tvCusName);
@@ -197,16 +231,7 @@ public class NavigateActivity extends AppCompatActivity implements OnMapReadyCal
             return;
         customerPlace = new MarkerOptions().position(new LatLng(latA, lngA)).title("Customer Place");
         restaurantPlace = new MarkerOptions().position(new LatLng(latB, lngB)).title("Restaurant Place");
-
-        //..............
-        Button btnGetDirection = findViewById(R.id.btnGetDirection);
-        btnGetDirection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toast.makeText(NavigateActivity.this, "" + latA, Toast.LENGTH_LONG).show();
-                new FetchURL(NavigateActivity.this).execute(getUrl(customerPlace.getPosition(), restaurantPlace.getPosition(), "walking"), "walking");
-            }
-        });
+        new FetchURL(NavigateActivity.this).execute(getUrl(customerPlace.getPosition(), restaurantPlace.getPosition(), "walking"), "walking");
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.mapNearBy);
 

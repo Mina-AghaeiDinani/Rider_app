@@ -151,16 +151,16 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:context="spartons.com.frisbeeGo.fragments.MapFragment" />
-
-    <Button
-        android:id="@+id/btnGetDirection"
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/nav_Navigate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:fontFamily="sans-serif-black"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:background="@color/colorPrimaryDark"
-        android:text="Get Direction" />
+        android:background="@color/riderColor"
+        android:fitsSystemWindows="true"
+        android:gravity="bottom"
+        app:itemBackground="@drawable/drawer_selected_item"
+        app:itemIconTint="@drawable/drawer_item"
+        app:itemTextColor="@drawable/drawer_item"
+        app:menu="@menu/navigation_order" />
 
 </LinearLayout>

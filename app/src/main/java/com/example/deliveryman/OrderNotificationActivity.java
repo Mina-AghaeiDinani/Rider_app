@@ -1,10 +1,14 @@
 package com.example.deliveryman;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +36,31 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class OrderNotificationActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
+    //Navigation
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.sign_out:
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(OrderNotificationActivity.this, LoginActivity.class));
+                    return true;
+                case R.id.profile:
+                    startActivity(new Intent(OrderNotificationActivity.this, RidersProfileActivity.class));
+                    finish();
+                    return true;
+                case R.id.menu:
+                    Intent intent = new Intent(OrderNotificationActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+            }
+            return false;
+        }
+    };
     private static String orderId, customerId, restaurantId;
     private DatabaseReference mRefCustomerLocation;
     private DatabaseReference mRefRestaurantLocation;
@@ -48,11 +78,17 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
     //Views
     TextView tvRestaurantName, tvCustomerName, tvDistance, tvFee, tvDate, tvTime;
     ImageView imgCustomer, imgRestaurant;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_notification);
+        //.....
+        firebaseAuth= FirebaseAuth.getInstance();
+        //Navigation
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_OrderNotify);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //Defines Views
         tvRestaurantName = findViewById(R.id.tvResNameNot);
         tvCustomerName = findViewById(R.id.tvCusNameNot);
