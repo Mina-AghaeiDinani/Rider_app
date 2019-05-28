@@ -1,6 +1,7 @@
 package com.example.deliveryman;
 
 import android.graphics.Color;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,10 +41,14 @@ import com.google.android.gms.maps.model.Marker;
 
 
 import com.example.deliveryman.directionHelper.TaskLoadedCallback;
+import com.squareup.picasso.Picasso;
 
 public class NavigateActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
     private String someVariable;
-    private static String key, customerId, restaurantId;
+    private static String key, customerId, restaurantId,
+            restaurantImage,customerImage
+            ,restaurantName,customerName
+            ,orderId;
     private static String slatA;
     private DatabaseReference mRefCustomerLocation;
     private DatabaseReference mRefRestaurantLocation;
@@ -55,16 +62,120 @@ public class NavigateActivity extends AppCompatActivity implements OnMapReadyCal
     private GoogleMap mMap;
     private static MarkerOptions customerPlace, restaurantPlace;
     private static MarkerOptions rest1, rest2;
+    private static Double distance,Fee;
     private Polyline currentPolyline;
+    //Views
+    TextView tvRestaurantName,tvCustomerName,tvDistance,tvFee,tvDate,tvTime;
+    ImageView imgCustomer,imgRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigate);
+        //Defines Views
+        tvRestaurantName=findViewById(R.id.tvResName);
+        tvCustomerName=findViewById(R.id.tvCusName);
+        tvDate=findViewById(R.id.tvDate);
+        tvDistance=findViewById(R.id.tvTotalDistanceNav);
+        tvTime=findViewById(R.id.tvTimeNav);
+        tvFee=findViewById(R.id.tvTotalFeeNav);
+        imgCustomer=findViewById(R.id.imgCustomerNav);
+        imgRestaurant=findViewById(R.id.imgRestaurantNav);
         //get Ids from previous activity
         key = getIntent().getStringExtra("key");
         restaurantId = getIntent().getStringExtra("restaurantId");
         customerId = getIntent().getStringExtra("customerId");
+        orderId=getIntent().getStringExtra("orderId");
+       // Toast.makeText(NavigateActivity.this,""+restaurantId,Toast.LENGTH_SHORT).show();
+        customerImage=getIntent().getStringExtra("customerImage");
+        restaurantImage=getIntent().getStringExtra("restaurantImage");
+        restaurantName=getIntent().getStringExtra("restaurantName");
+        customerName=getIntent().getStringExtra("customerName");
+        //Assign values to each view
+        tvCustomerName.setText(customerName);
+        tvRestaurantName.setText(restaurantName);
+        Picasso.get()
+                .load(restaurantImage)
+                .placeholder(R.drawable.logo_restaurant)
+                .fit()
+                .centerCrop()
+                .into(imgRestaurant);
+        Picasso.get()
+                .load(customerImage)
+                .placeholder(R.drawable.customer_unknown)
+                .fit()
+                .centerCrop()
+                .into(imgCustomer);
+
+        //get references to get Latitude and Longitude
+        mRefCustomerLocation = FirebaseDatabase.getInstance()
+                .getReference("CustomersLocation").child(customerId);
+
+        //Location of customer
+        mRefCustomerLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
+                latA = locationOfPlaces.getLat();
+                lngA = locationOfPlaces.getLng();
+                //....................
+                //get reference of restaurant
+                mRefRestaurantLocation = FirebaseDatabase.getInstance()
+                        .getReference("RestaurantsLocation").child(restaurantId);
+                //Location of restaurant
+                mRefRestaurantLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
+                        latB = locationOfPlaces.getLat();
+                        lngB = locationOfPlaces.getLng();
+                        //Compute distance
+                        Location loc1 = new Location("");
+                        loc1.setLatitude(latA);
+                        loc1.setLongitude(lngA);
+
+                        Location loc2 = new Location("");
+                        loc2.setLatitude(latB);
+                        loc2.setLongitude(lngB);
+
+                        float distanceInMeters = loc1.distanceTo(loc2);
+                        double earthRadius = 6371;
+                        double latDiff = Math.toRadians(latB-latA);
+                        double lngDiff = Math.toRadians(lngB-lngA);
+                        double a = Math.sin(latDiff /2) * Math.sin(latDiff /2) +
+                                Math.cos(Math.toRadians(latA))*
+                                        Math.cos(Math.toRadians(latB))* Math.sin(lngDiff /2) *
+                                        Math.sin(lngDiff /2);
+                        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        double distance = earthRadius * c;
+
+                        int meterConversion = 1609;
+
+                       // distance= new Float(distance * meterConversion).floatValue();
+                      //  distance=distance/1000;
+
+                       // distance = 2 * earthRadius * Math.asin(Math.sqrt(Math.pow(Math.sin(latDiff / 2.0), 2) + Math.cos(latA) * Math.cos(latB) * Math.pow(Math.sin(longDiff / 2), 2)));
+                        Fee = distance * 0.5;
+                        //Assign to field
+                        tvDistance.setText(String.format("%.2f", distance) + " Km");
+                        tvFee.setText(String.format("%.2f", Fee)+"$");
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // ...
+                    }
+                });
+                //.................
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // ...
+            }
+        });
         // Toast.makeText(NavigateActivity.this,restaurantId+"     "+customerId,Toast.LENGTH_LONG).show();
         readCustomerLocation();
         readRestaurantLocation();

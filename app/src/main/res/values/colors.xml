@@ -15,4 +15,6 @@
     <color name="riderTransparentColor">#7900A8F3</color>
     <color name="darkGrayTransparent">#80413D3D</color>
     <color name="darkGray">#7C7979</color>
+    <color name="Red">#C90707</color>
+    <color name="Green">#0AC40A</color>
 </resources>

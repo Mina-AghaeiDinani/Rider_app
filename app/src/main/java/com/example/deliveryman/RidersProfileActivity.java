@@ -30,24 +30,33 @@ public class RidersProfileActivity extends AppCompatActivity {
                 case R.id.sign_out:
                     firebaseAuth.signOut();
                     finish();
-                    startActivity(new Intent(RidersProfileActivity.this,LoginActivity.class));
+                    startActivity(new Intent(RidersProfileActivity.this, LoginActivity.class));
                     return true;
 
                 case R.id.order:
-                    Intent  intent = new Intent(RidersProfileActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(RidersProfileActivity.this, PendingCookingOrdersActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
+                case R.id.btn_home:
+                    Intent intent2 = new Intent(RidersProfileActivity.this, MainActivity.class);
+                    startActivity(intent2);
+                    finish();
+                    return true;
+
+
             }
             return false;
         }
     };
     //................
-    TextView tvName,tvEmail,tvAddress,tvPhone,tvDescription;
+    TextView tvName, tvEmail, tvAddress, tvPhone, tvDescription;
     de.hdodenhof.circleimageview.CircleImageView imgProfile;
 
     //...
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,21 +72,21 @@ public class RidersProfileActivity extends AppCompatActivity {
         //end of code related to toolbar
 
         //
-        tvName=findViewById(R.id.tvName);
-        tvEmail=findViewById(R.id.tvMail);
-        tvPhone=findViewById(R.id.tvPhone);
-        tvDescription=findViewById(R.id.tvDescription);
-        imgProfile=findViewById(R.id.imgPro);
+        tvName = findViewById(R.id.tvName);
+        tvEmail = findViewById(R.id.tvMail);
+        tvPhone = findViewById(R.id.tvPhone);
+        tvDescription = findViewById(R.id.tvDescription);
+        imgProfile = findViewById(R.id.imgPro);
 
         //....
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseDatabase=FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         //get reference
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("RidersProfile");
         databaseReference.child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                RiderProfile customersProfile=dataSnapshot.getValue(RiderProfile.class);
+                RiderProfile customersProfile = dataSnapshot.getValue(RiderProfile.class);
                 tvName.setText(customersProfile.getName());
                 tvPhone.setText(customersProfile.getPhone());
                 tvEmail.setText(customersProfile.getEmail());
@@ -92,11 +101,12 @@ public class RidersProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(RidersProfileActivity.this,databaseError.getCode(),Toast.LENGTH_LONG).show();
+                Toast.makeText(RidersProfileActivity.this, databaseError.getCode(), Toast.LENGTH_LONG).show();
             }
         });
 
     }
+
     //**************These codes belong to what toolbar is doing
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,6 +114,7 @@ public class RidersProfileActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.editmenu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle toolbar item clicks here.

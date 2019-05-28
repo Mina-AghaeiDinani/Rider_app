@@ -129,7 +129,10 @@
         android:layout_height="wrap_content"
         android:background="@color/riderColor"
         android:gravity="bottom"
-        app:itemTextColor="@color/colorBlack"
+        app:itemBackground="@drawable/drawer_selected_item"
+        app:itemIconTint="@drawable/drawer_item"
+        app:itemTextColor="@drawable/drawer_item"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

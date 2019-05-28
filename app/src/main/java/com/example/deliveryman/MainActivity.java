@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     de.hdodenhof.circleimageview.CircleImageView imgGetReady;
     de.hdodenhof.circleimageview.CircleImageView imgRest;
     de.hdodenhof.circleimageview.CircleImageView imgPendingOrders;
+    de.hdodenhof.circleimageview.CircleImageView imgFinancialReports;
     DatabaseReference databaseRefLocation;
     TextView txtFullNameNav;
     //to do logout we need it
@@ -96,7 +97,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //..............
+        imgFinancialReports=findViewById(R.id.imgReport);
+        imgFinancialReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,OrderNotificationActivity.class);
+                startActivity(intent);
+                finish();
 
+            }
+        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);

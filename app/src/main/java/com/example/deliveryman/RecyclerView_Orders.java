@@ -27,13 +27,7 @@ public class RecyclerView_Orders {
 
     private Context mContext;
     private CartsAdapter mCartsAdapter;
-    private DatabaseReference mRefCustomerLocation;
-    private DatabaseReference mRefRestaurantLocation;
-    private Double latA;
-    private static Double distance;
-    private static String restaurantId;
-    private static String customerId;
-    private static String orderId;
+
 
     public void setConfig(RecyclerView recyclerView, Context context, List<CartInfo> cartInfos, List<String> keys) {
         mContext = context;
@@ -43,15 +37,6 @@ public class RecyclerView_Orders {
 
     }
 
-    public double CalculationByDistance(double initialLat, double initialLong, double finalLat, double finalLong) {
-
-        double latDiff = finalLat - initialLat;
-        double longDiff = finalLong - initialLong;
-        double earthRadius = 6371; //In Km if you want the distance in km
-        double distance = 2 * earthRadius * Math.asin(Math.sqrt(Math.pow(Math.sin(latDiff / 2.0), 2) + Math.cos(initialLat) * Math.cos(finalLat) * Math.pow(Math.sin(longDiff / 2), 2)));
-        return distance;
-    }
-
     class CartsItemView extends RecyclerView.ViewHolder {
         private de.hdodenhof.circleimageview.CircleImageView mImageRestaurant;
         private de.hdodenhof.circleimageview.CircleImageView mImageCustomer;
@@ -59,17 +44,19 @@ public class RecyclerView_Orders {
         private TextView mNameCustomer;
         private TextView mDistance;
         private TextView mFee;
+        private TextView mDate;
+        private TextView mTime;
         private String key;
-        private String Distance;
-        private String Fee;
-
-        private double lngA;
-        private double latCustomer;
-        private double lngCustomer;
-        private double latRestaurant;
-        private double lngRestaurant;
-        public double latB;
-        private double lngB;
+        private String restaurantId;
+        private String restaurantImage;
+        private String customerId;
+        private String customerImage;
+        private String orderId;
+        private String customerName;
+        private String restaurantName;
+        private DatabaseReference mRefCustomerLocation;
+        private DatabaseReference mRefRestaurantLocation;
+        private Double latA,latB,lngA,lngB;
 
         public CartsItemView(ViewGroup parent) {
             super(LayoutInflater.from(mContext).
@@ -80,6 +67,8 @@ public class RecyclerView_Orders {
             mImageRestaurant = itemView.findViewById(R.id.imgRestaurant);
             mDistance = itemView.findViewById(R.id.tvTotalDistance);
             mFee = itemView.findViewById(R.id.tvTotalFee);
+            mTime = itemView.findViewById(R.id.tvTime);
+            mDate = itemView.findViewById(R.id.tvDate);
             //Item set click on it for open list
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,6 +76,10 @@ public class RecyclerView_Orders {
                     Intent intent = new Intent(mContext, NavigateActivity.class);
                     intent.putExtra("key", key);
                     intent.putExtra("restaurantId", restaurantId);
+                    intent.putExtra("restaurantImage", restaurantImage);
+                    intent.putExtra("customerImage", customerImage);
+                    intent.putExtra("restaurantName", restaurantName);
+                    intent.putExtra("customerName", customerName);
                     intent.putExtra("customerId", customerId);
                     intent.putExtra("orderId", orderId);
                     mContext.startActivity(intent);
@@ -96,65 +89,15 @@ public class RecyclerView_Orders {
         }
 
         public void bind(CartInfo cartInfo, String key) {
-            latB = 0.0;
 
             restaurantId = cartInfo.getRestaurantId();
             customerId = cartInfo.getCustomerId();
             orderId = cartInfo.getOrderedId();
-            // mTotalPrice.setText(cartInfo.getTotalPrice()+" €");
-            // mTotalItems.setText(cartInfo.getTotalItems());
+            customerImage = cartInfo.getCustomerImage();
+            restaurantImage = cartInfo.getRestaurantImage();
+            restaurantName = cartInfo.getRestaurantName();
+            customerName = cartInfo.getCustomerName();
             this.key = key;
-            //get references to get Latitude and Longitude
-            mRefCustomerLocation = FirebaseDatabase.getInstance()
-                    .getReference("CustomersLocation").child(customerId);
-
-            //Location of customer
-            mRefCustomerLocation.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
-                    //latA = locationOfPlaces.getLat();
-                    //lngA = locationOfPlaces.getLng();
-                   // mDistance.setText("" + latA);
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // ...
-                }
-            });
-
-            //get reference of restaurant
-            mRefRestaurantLocation = FirebaseDatabase.getInstance()
-                    .getReference("RestaurantsLocation").child(restaurantId);
-            //Location of restaurant
-            mRefRestaurantLocation.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
-                    //latB = locationOfPlaces.getLat();
-                    // lngB=locationOfPlaces.getLng();
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // ...
-                }
-            });
-           // mFee.setText("" + latB);
-            //Compute distance between customer and restaurant
-            // distance=CalculationByDistance(latA,lngA,latB,lngB);
-            // double latDiff = latB - latA;
-            //double longDiff = lngB - lngA;
-            //double earthRadius = 6371; //In Km if you want the distance in km
-            // distance = 2 * earthRadius * Math.asin( Math.sqrt( Math.pow( Math.sin( latDiff / 2.0 ), 2 ) + Math.cos( latA ) * Math.cos( latB ) * Math.pow( Math.sin( longDiff / 2 ), 2 ) ) );
-
-            //.........................
-            // mDistance.setText(String.format("%.2f",distance)+" Km");
-            //  mDistance.setText(""+latA);
-            //mFee.setText("3.5 $");
             mNameRestaurant.setText(cartInfo.getRestaurantName());
             mNameCustomer.setText(cartInfo.getCustomerName());
             Picasso.get()
@@ -169,6 +112,62 @@ public class RecyclerView_Orders {
                     .fit()
                     .centerCrop()
                     .into(mImageCustomer);
+            //.................
+            //get references to get Latitude and Longitude
+            mRefCustomerLocation = FirebaseDatabase.getInstance()
+                    .getReference("CustomersLocation").child(customerId);
+
+            //Location of customer
+            mRefCustomerLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
+                    latA = locationOfPlaces.getLat();
+                    lngA = locationOfPlaces.getLng();
+                    //....................
+                    //get reference of restaurant
+                    mRefRestaurantLocation = FirebaseDatabase.getInstance()
+                            .getReference("RestaurantsLocation").child(restaurantId);
+                    //Location of restaurant
+                    mRefRestaurantLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            LocationOfPlaces locationOfPlaces = dataSnapshot.getValue(LocationOfPlaces.class);
+                            latB = locationOfPlaces.getLat();
+                            lngB = locationOfPlaces.getLng();
+                            //Compute distance
+                            double earthRadius = 6371;
+                            double latDiff = Math.toRadians(latB-latA);
+                            double lngDiff = Math.toRadians(lngB-lngA);
+                            double a = Math.sin(latDiff /2) * Math.sin(latDiff /2) +
+                                    Math.cos(Math.toRadians(latA))*
+                                            Math.cos(Math.toRadians(latB))* Math.sin(lngDiff /2) *
+                                            Math.sin(lngDiff /2);
+                            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                            double distance = earthRadius * c;
+                            double Fee = distance * 0.5;
+                            //Assign to field
+                            mDistance.setText(String.format("%.2f", distance) + " Km");
+                            mFee.setText(String.format("%.2f", Fee) +"$");
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // ...
+                        }
+                    });
+                    //.................
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // ...
+                }
+            });
+
+
         }
     }
 

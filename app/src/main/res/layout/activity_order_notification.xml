@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NavigateActivity">
+    tools:context=".OrderNotificationActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -21,20 +21,20 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvDateNav"
+                android:id="@+id/tvDateNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="3dp"
-                android:layout_toLeftOf="@+id/tvTimeNav"
+                android:layout_toLeftOf="@+id/tvTimeNot"
                 android:fontFamily="sans-serif-black"
                 android:text="23 may 2015  "
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tvTimeNav"
+                android:id="@+id/tvTimeNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -48,7 +48,7 @@
                 android:textSize="15sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgRestaurantNav"
+                android:id="@+id/imgRestaurantNot"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentStart="true"
@@ -57,19 +57,19 @@
                 android:src="@drawable/logo_restaurant" />
 
             <TextView
-                android:id="@+id/tvResName"
+                android:id="@+id/tvResNameNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="25dp"
-                android:layout_toRightOf="@+id/imgRestaurantNav"
+                android:layout_toRightOf="@+id/imgRestaurantNot"
                 android:fontFamily="sans-serif-black"
                 android:text="Shab Neshin"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgCustomerNav"
+                android:id="@+id/imgCustomerNot"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
@@ -78,12 +78,12 @@
                 android:src="@drawable/customer_unknown" />
 
             <TextView
-                android:id="@+id/tvCusName"
+                android:id="@+id/tvCusNameNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="55dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toLeftOf="@+id/imgCustomerNav"
+                android:layout_toLeftOf="@+id/imgCustomerNot"
                 android:fontFamily="sans-serif-black"
                 android:text="Mina aghaei Dinani"
                 android:textColor="@color/colorBlack"
@@ -91,10 +91,10 @@
 
 
             <TextView
-                android:id="@+id/tvDistanceNav"
+                android:id="@+id/tvDistanceNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgRestaurantNav"
+                android:layout_below="@+id/imgRestaurantNot"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-black"
@@ -104,63 +104,89 @@
 
 
             <TextView
-                android:id="@+id/tvTotalDistanceNav"
+                android:id="@+id/tvTotalDistanceNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgRestaurantNav"
+                android:layout_below="@+id/imgRestaurantNot"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/tvDistanceNav"
+                android:layout_toEndOf="@+id/tvDistanceNot"
                 android:fontFamily="sans-serif-black"
                 android:text="3.5 Km "
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tvFeeNav"
+                android:id="@+id/tvFeeNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgRestaurantNav"
+                android:layout_below="@+id/imgRestaurantNot"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/tvTotalDistanceNav"
+                android:layout_toEndOf="@+id/tvTotalDistanceNot"
                 android:fontFamily="sans-serif-black"
                 android:text="Fee:  "
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tvTotalFeeNav"
+                android:id="@+id/tvTotalFeeNot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgRestaurantNav"
+                android:layout_below="@+id/imgRestaurantNot"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/tvFeeNav"
+                android:layout_toEndOf="@+id/tvFeeNot"
                 android:fontFamily="sans-serif-black"
                 android:text="6.5 $  "
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/GrayTransparent"
+        app:cardCornerRadius="2dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnDecline"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textAllCaps="false"
+                android:background="@color/Red"
+                android:text="Decline"/>
+            <Button
+                android:id="@+id/btnAccept"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-black"
+                android:textAllCaps="false"
+                android:background="@color/Green"
+                android:text="Accept"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
     <fragment
-        android:id="@+id/mapNearBy"
+        android:id="@+id/mapNearByNot"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:context="spartons.com.frisbeeGo.fragments.MapFragment" />
 
-    <Button
-        android:id="@+id/btnGetDirection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:fontFamily="sans-serif-black"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:background="@color/colorPrimaryDark"
-        android:text="Get Direction" />
+
 
 </LinearLayout>
