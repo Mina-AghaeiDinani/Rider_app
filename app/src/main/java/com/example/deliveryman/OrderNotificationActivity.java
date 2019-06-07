@@ -1,10 +1,15 @@
 package com.example.deliveryman;
 
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class OrderNotificationActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
+public class OrderNotificationActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback,  NotificationDialogActivity.NotificationDialogListener {
     //Navigation
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,6 +70,8 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
     private DatabaseReference mRefCustomerLocation;
     private DatabaseReference mRefRestaurantLocation;
     private DatabaseReference mRefOrderInfo;
+    DatabaseReference databaseOrder;
+
     //Location
     private static Double latA;
     private static Double latB;
@@ -84,6 +91,8 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_notification);
+
+
         //.....
         firebaseAuth= FirebaseAuth.getInstance();
         //Navigation
@@ -100,7 +109,12 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
         imgRestaurant = findViewById(R.id.imgRestaurantNot);
         //give order Id to variable orderId
         //get reference of Order,just to test I gave it to
-        orderId = "-Lfe40j4WM43u2Irm7Wl";
+        orderId = getIntent().getStringExtra("orderID");
+        Log.d("ORDERID", "id: "+orderId);
+
+        openNotificationDialog(orderId);
+
+
 
         mRefOrderInfo = FirebaseDatabase.getInstance()
                 .getReference("OrderInfo").child(orderId);
@@ -189,8 +203,10 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
             }
         });
 
-        Button btnAccept = findViewById(R.id.btnAccept);
-        btnAccept.setOnClickListener(new View.OnClickListener() {
+        Button btnOrderPicked = findViewById(R.id.btnOrderPrepared);
+        Button btnOrderDelivered = findViewById(R.id.btnOrderDelivered);
+
+        btnOrderPicked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //..............
@@ -199,6 +215,21 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
 
 
     }
+
+    public void openNotificationDialog(String order_id){ //Method called when a new element is added from the database
+
+        NotificationDialogActivity notificationDialog = new NotificationDialogActivity();
+        Bundle notificationBundle = new Bundle();
+        notificationBundle.putString("new_orderID",order_id);
+        Log.d("BUNDLE", "bundle:"+ notificationBundle);
+
+        notificationDialog.setArguments(notificationBundle);
+        notificationDialog.show(getSupportFragmentManager(), "Notification received");
+    }
+
+
+
+
 
     private void position() {
         if (latA == null || latB == null || lngA == null || lngB == null)
@@ -291,5 +322,31 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
     }
 
 
+    @Override
+    public void acceptOrder(String order) {
+        /* First, we cancel all the notification pending since we opened the corresponding activity*/
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
+
+        databaseOrder = FirebaseDatabase.getInstance().getReference()
+                .child("OrderInfo").child(order);
+
+        databaseOrder.child("status").setValue("in course");
+
+        //TODO: Open Activity showing the order
+
+        Toast.makeText(this, "Course accepted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void declineOrder(String order) {
+        /* First, we cancel all the notification pending since we opened the corresponding activity*/
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
+
+        Toast.makeText(this, "Course declined", Toast.LENGTH_SHORT).show();
+
+
+    }
 }
 

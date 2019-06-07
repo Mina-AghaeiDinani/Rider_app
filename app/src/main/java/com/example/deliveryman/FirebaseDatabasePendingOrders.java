@@ -33,10 +33,11 @@ public class FirebaseDatabasePendingOrders {
                 cartInfos.clear();
                 List<String> keys = new ArrayList<>();
                 for (DataSnapshot keyNode : dataSnapshot.getChildren()){
-                    keys.add(keyNode.getKey());
                     CartInfo cart=keyNode.getValue(CartInfo.class);
-                    if (cart.getStatus().contains("pending") || (cart.getStatus().contains("cooking")))
+                    if (cart.getStatus().contains("pending") || (cart.getStatus().contains("accepted"))) {
+                        keys.add(keyNode.getKey());
                         cartInfos.add(cart);
+                    }
                 }
                 dataStatus.DataIsLoaded(cartInfos,keys);
             }

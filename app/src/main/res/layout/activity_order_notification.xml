@@ -149,26 +149,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btnDecline"
-                android:layout_width="0dp"
+                android:id="@+id/btnOrderPrepared"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
-                android:layout_marginEnd="10dp"
                 android:fontFamily="sans-serif-black"
                 android:textAllCaps="false"
-                android:background="@color/Red"
-                android:text="Decline"/>
+                android:background="@color/riderColor"
+                android:shadowColor="@color/lightGrayTransparent"
+                android:text="Order Picked"/>
+
             <Button
-                android:id="@+id/btnAccept"
-                android:layout_width="0dp"
+                android:id="@+id/btnOrderDelivered"
+                android:visibility="gone"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:fontFamily="sans-serif-black"
                 android:textAllCaps="false"
-                android:background="@color/Green"
-                android:text="Accept"/>
+                android:background="@color/riderColor"
+                android:shadowColor="@color/lightGrayTransparent"
+                android:text="Order Picked"/>
         </LinearLayout>
     <fragment
         android:id="@+id/mapNearByNot"
