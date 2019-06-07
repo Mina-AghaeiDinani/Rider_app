@@ -150,4 +150,12 @@ public class PendingCookingOrdersActivity extends AppCompatActivity implements N
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(this, MainActivity.class);
+
+        startActivity(setIntent);
+    }
 }

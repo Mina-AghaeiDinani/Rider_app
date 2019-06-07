@@ -333,8 +333,6 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
 
         databaseOrder.child("status").setValue("in course");
 
-        //TODO: Open Activity showing the order
-
         Toast.makeText(this, "Course accepted", Toast.LENGTH_SHORT).show();
     }
 
@@ -343,8 +341,17 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
         /* First, we cancel all the notification pending since we opened the corresponding activity*/
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
-
         Toast.makeText(this, "Course declined", Toast.LENGTH_SHORT).show();
+        databaseOrder = FirebaseDatabase.getInstance().getReference()
+                .child("OrderInfo").child(order);
+
+        databaseOrder.child("status").setValue("course declined");
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("FROM_ACTIVITY", "OrderNotificationActivity");
+        startActivity(intent);
+
+
 
 
     }
