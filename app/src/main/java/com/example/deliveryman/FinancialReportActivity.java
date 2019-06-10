@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -88,7 +89,7 @@ public class FinancialReportActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
                     CartInfo cart = keyNode.getValue(CartInfo.class);
-                    Toast.makeText(FinancialReportActivity.this, riderId, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(FinancialReportActivity.this, riderId, Toast.LENGTH_SHORT).show();
 
                     if (cart.getRiderId() != null && cart.getRiderId().contains(riderId)) {
 
@@ -117,6 +118,7 @@ public class FinancialReportActivity extends AppCompatActivity {
                                         latB = locationOfPlaces.getLat();
                                         lngB = locationOfPlaces.getLng();
                                         //Compute distance
+                                        Log.d("LATLNG", "latB: " + latB + "lngB: "+lngB);
 
                                         double earthRadius = 6371;
                                         double latDiff = Math.toRadians(latB - latA);
@@ -130,7 +132,13 @@ public class FinancialReportActivity extends AppCompatActivity {
 
                                         //Assign to field
                                         totalDistance = totalDistance + distance;
-
+                                        Log.d("TOTDISTANCE", "total dist: " + totalDistance);
+//first get id of views
+                                        TextView tvDistance = findViewById(R.id.traveledDistance);
+                                        TextView tvFee = findViewById(R.id.earnedFee);
+                                        tvDistance.setText(String.format("%.2f", totalDistance) + " Km");
+                                        Double Fee = totalDistance * 0.5;
+                                        tvFee.setText(String.format("%.2f", Fee) + "$");
                                     }
 
                                     @Override
@@ -148,13 +156,9 @@ public class FinancialReportActivity extends AppCompatActivity {
                         });
                         //...................
                     }
+
                 }
-                //first get id of views
-                TextView tvDistance = findViewById(R.id.traveledDistance);
-                TextView tvFee = findViewById(R.id.earnedFee);
-                tvDistance.setText(String.format("%.2f", totalDistance) + " Km");
-                Double Fee = totalDistance * 0.5;
-                tvFee.setText(String.format("%.2f", Fee) + "$");
+
             }
 
             @Override

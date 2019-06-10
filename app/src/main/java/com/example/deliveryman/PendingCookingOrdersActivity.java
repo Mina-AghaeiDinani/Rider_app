@@ -135,8 +135,6 @@ public class PendingCookingOrdersActivity extends AppCompatActivity implements N
 
         databaseOrder.child("status").setValue("in course");
 
-        //TODO: Open Activity showing the order
-
         Toast.makeText(this, "Course accepted", Toast.LENGTH_SHORT).show();
     }
 
