@@ -42,7 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             //broadcastIntent.putExtra("msg_order_id", orderId);
             //busAppRunning.getInstance(this).sendBroadcast(broadcastIntent);
 
-            if (!status.equals("in course")) {
+            if (!status.equals("delivered")) {
                 Log.d("NOTIFICATION", "Order: " + orderId);
                 generateNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle(), orderId);
             }

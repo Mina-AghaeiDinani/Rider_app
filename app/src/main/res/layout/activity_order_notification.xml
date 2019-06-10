@@ -158,7 +158,7 @@
                 android:textAllCaps="false"
                 android:background="@color/riderColor"
                 android:shadowColor="@color/lightGrayTransparent"
-                android:text="Order Picked"/>
+                android:text="I picked the order"/>
 
             <Button
                 android:id="@+id/btnOrderDelivered"
@@ -171,8 +171,9 @@
                 android:textAllCaps="false"
                 android:background="@color/riderColor"
                 android:shadowColor="@color/lightGrayTransparent"
-                android:text="Order Picked"/>
+                android:text="I delivered the order"/>
         </LinearLayout>
+
     <fragment
         android:id="@+id/mapNearByNot"
         android:name="com.google.android.gms.maps.MapFragment"

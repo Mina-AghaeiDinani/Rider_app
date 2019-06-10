@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,6 +79,8 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
     private static Double lngA;
     private static Double lngB;
 
+    private Button btnOrderPicked;
+    private Button btnOrderDelivered;
     //Map
     private GoogleMap mMap;
     private static MarkerOptions customerPlace, restaurantPlace;
@@ -203,13 +206,34 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
             }
         });
 
-        Button btnOrderPicked = findViewById(R.id.btnOrderPrepared);
-        Button btnOrderDelivered = findViewById(R.id.btnOrderDelivered);
+        btnOrderPicked = findViewById(R.id.btnOrderPrepared);
+        btnOrderDelivered = findViewById(R.id.btnOrderDelivered);
 
         btnOrderPicked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //..............
+                btnOrderPicked.setVisibility(View.GONE); //We make the button disappear
+                btnOrderDelivered.setVisibility(View.VISIBLE); //We make the new button appear
+                databaseOrder = FirebaseDatabase.getInstance().getReference()
+                        .child("OrderInfo").child(orderId);
+
+                databaseOrder.child("status").setValue("prepared");
+                Toast.makeText(OrderNotificationActivity.this,"Order picked from Restaurant", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnOrderDelivered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderNotificationActivity.this, PendingCookingOrdersActivity.class);
+                btnOrderDelivered.setVisibility(View.GONE); //We make the new button appear
+                databaseOrder = FirebaseDatabase.getInstance().getReference()
+                        .child("OrderInfo").child(orderId);
+
+                databaseOrder.child("status").setValue("delivered");
+                Toast.makeText(OrderNotificationActivity.this,"Ordered delivered", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+
             }
         });
 
