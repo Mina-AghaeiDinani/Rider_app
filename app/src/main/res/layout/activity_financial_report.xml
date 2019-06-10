@@ -42,6 +42,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -50,11 +51,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Total traveled path: "
+                    android:textSize="17sp"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
@@ -64,6 +66,7 @@
                     android:layout_marginStart="10dp"
                     android:fontFamily="sans-serif-black"
                     android:text="189 Km "
+                    android:textSize="17sp"
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
 
@@ -73,15 +76,17 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Total earned fee: "
+                    android:textSize="17sp"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/earnedFee"
+                    android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

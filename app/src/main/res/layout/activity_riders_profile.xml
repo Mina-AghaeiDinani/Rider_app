@@ -45,19 +45,27 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgPro"
-                    android:layout_width="135dp"
-                    android:layout_height="135dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/personal" />
 
-
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_horizontal"
+                    android:numStars="5"
+                    android:theme="@style/RatingBar"
+                    android:accessibilityHeading="false" />
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Mina Aghaei Dinani"

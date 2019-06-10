@@ -230,6 +230,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, RidersProfileActivity.class));
 
         }
+        if (id == R.id.nav_orders) {
+
+            startActivity(new Intent(MainActivity.this, RatingActivity.class));
+
+        }
 
 
 
