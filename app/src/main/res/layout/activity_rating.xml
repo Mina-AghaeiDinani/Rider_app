@@ -28,6 +28,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/ratingTextView"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
                 android:fontFamily="sans-serif-black"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorBlack"
-                android:text="Were you satisfied by xxxxxx restaurant "/>
+                android:text="Were you satisfied by the Restaurant? "/>
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -56,14 +57,14 @@
                 android:fontFamily="sans-serif-black"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorBlack"
-                android:hint="Send some thing for restaurateur"/>
+                android:hint="Leave a comment"/>
             <Button
                 android:id="@+id/btnFeedback"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
-                android:text="send feedback"
+                android:text="Send Feedback"
                 android:fontFamily="sans-serif-black"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorBlack"

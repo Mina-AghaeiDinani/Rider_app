@@ -67,7 +67,7 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
             return false;
         }
     };
-    private static String orderId, customerId, restaurantId;
+    private static String orderId, customerId, restaurantId, restName;
     private DatabaseReference mRefCustomerLocation;
     private DatabaseReference mRefRestaurantLocation;
     private DatabaseReference mRefOrderInfo;
@@ -126,7 +126,7 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final CartInfo cartInfo = dataSnapshot.getValue(CartInfo.class);
-
+                restName = cartInfo.getRestaurantName();
                 //Assign values to each view
                 tvCustomerName.setText(cartInfo.getCustomerName());
                 tvRestaurantName.setText(cartInfo.getRestaurantName());
@@ -225,13 +225,15 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
         btnOrderDelivered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderNotificationActivity.this, PendingCookingOrdersActivity.class);
                 btnOrderDelivered.setVisibility(View.GONE); //We make the new button appear
                 databaseOrder = FirebaseDatabase.getInstance().getReference()
                         .child("OrderInfo").child(orderId);
 
                 databaseOrder.child("status").setValue("delivered");
                 Toast.makeText(OrderNotificationActivity.this,"Ordered delivered", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(OrderNotificationActivity.this, RatingActivity.class);
+                intent.putExtra("RestaurantName", restName);
+                intent.putExtra("RestaurantID",restaurantId);
                 startActivity(intent);
 
             }
@@ -351,11 +353,12 @@ public class OrderNotificationActivity extends AppCompatActivity implements OnMa
         /* First, we cancel all the notification pending since we opened the corresponding activity*/
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
-
         databaseOrder = FirebaseDatabase.getInstance().getReference()
                 .child("OrderInfo").child(order);
 
         databaseOrder.child("status").setValue("in course");
+
+
 
         Toast.makeText(this, "Course accepted", Toast.LENGTH_SHORT).show();
     }
