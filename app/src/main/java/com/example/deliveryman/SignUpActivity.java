@@ -463,7 +463,7 @@ public class SignUpActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         //will save it under Uid
         DatabaseReference myRef = firebaseDatabase.getReference(mAuth.getUid());
-        RiderProfile riderProfile = new RiderProfile(txt_Name.getText().toString().trim(), txt_Phone.getText().toString().trim(), txt_Mail.getText().toString().trim(), txt_Description.getText().toString().trim(), String.valueOf(image_uri));
+        RiderProfile riderProfile = new RiderProfile(txt_Name.getText().toString().trim(), txt_Phone.getText().toString().trim(), txt_Mail.getText().toString().trim(), txt_Description.getText().toString().trim(), String.valueOf(image_uri),0,0);
 
         myRef.setValue(riderProfile);
 
@@ -498,7 +498,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             txt_Phone.getText().toString().trim(),
                                             txt_Mail.getText().toString().trim(),
                                             txt_Description.getText().toString().trim(),
-                                            uri.toString());
+                                            uri.toString(),0,0);
                                     FirebaseDatabase.getInstance().getReference("RidersProfile")
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                             .setValue(riderProfile);

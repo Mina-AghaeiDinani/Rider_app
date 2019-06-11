@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +53,7 @@ public class RidersProfileActivity extends AppCompatActivity {
     //................
     TextView tvName, tvEmail, tvAddress, tvPhone, tvDescription;
     de.hdodenhof.circleimageview.CircleImageView imgProfile;
-
+    private  RatingBar rate;
     //...
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
@@ -61,6 +62,9 @@ public class RidersProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riders_profile);
+        //Rating bar
+        rate = (RatingBar) findViewById(R.id.ratingBarRider);
+
         //Navigation
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_profile);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -90,6 +94,8 @@ public class RidersProfileActivity extends AppCompatActivity {
                 tvName.setText(customersProfile.getName());
                 tvPhone.setText(customersProfile.getPhone());
                 tvEmail.setText(customersProfile.getEmail());
+                //rate is added
+                rate.setRating(customersProfile.getRating());
                 tvDescription.setText(customersProfile.getShortdescription());
                 Picasso.get()
                         .load(customersProfile.getImageUrl())
