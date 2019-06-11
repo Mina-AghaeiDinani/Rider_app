@@ -55,9 +55,9 @@ class MapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
         //press on back
-        val btnEndRegistration = findViewById<Button>(R.id.btnBack)
+        val btnEndRegistration = findViewById<Button>(R.id.btnBack1)
         btnEndRegistration.setOnClickListener {
-            val intent = Intent(this@MapActivity, LoginActivity::class.java)
+            val intent = Intent(this@MapActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

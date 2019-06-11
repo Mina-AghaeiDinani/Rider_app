@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private FirebaseHelper firebaseHelper;
     private String previousActivity = "";
+    private String check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +69,7 @@ public class MainActivity extends AppCompatActivity
         imgGetReady.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgGetReady.setEnabled(false);
-                tvGetReady.setText("You are enable");
-                imgRest.setEnabled(true);
+
                // startActivityForResult(new Intent(MainActivity.this, MapActivity.class));
                 startActivity(new Intent(MainActivity.this, MapActivity.class));
             }
@@ -91,6 +90,7 @@ public class MainActivity extends AppCompatActivity
                 finish();
             }
         });
+
         // Pending Orders
         imgPendingOrders=findViewById(R.id.imgOrders);
         imgPendingOrders.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,PendingCookingOrdersActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
         //..............
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,FinancialReportActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
             }
         });
@@ -147,14 +147,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //...............................
-
-        //
-
-        //Initiate Receycler view
-        //...............................
-
-        //
 
         //Initiate Receycler view
       /*  mRecyclerView = (RecyclerView) findViewById(R.id.recycler_orders);
@@ -167,6 +159,8 @@ public class MainActivity extends AppCompatActivity
 
         });*/
         //
+        //when rider is enable change status
+
     }
 
     @Override
