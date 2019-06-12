@@ -69,9 +69,11 @@ public class MainActivity extends AppCompatActivity
         imgGetReady.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               // startActivityForResult(new Intent(MainActivity.this, MapActivity.class));
-                startActivity(new Intent(MainActivity.this, MapActivity.class));
+                tvGetReady.setText("I am enable");
+                imgGetReady.setEnabled(false);
+                //firebaseHelper.deleteDriver();
+                // startActivityForResult(new Intent(MainActivity.this, MapActivity.class));
+                //startActivity(new Intent(MainActivity.this, MapActivity.class));
             }
         });
         //sign out to take a rest
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity
                 //firebaseHelper.deleteDriver();
                 imgGetReady.setEnabled(true);
                 Toast.makeText(MainActivity.this,"Have a good day",Toast.LENGTH_LONG).show();
-                databaseRefLocation.removeValue();
+                //databaseRefLocation.removeValue();
                 firebaseAuth.signOut();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();

@@ -84,7 +84,7 @@ class MapActivity : AppCompatActivity() {
             if (driverOnlineFlag) driverStatusTextView.text = resources.getString(R.string.online_driver)
             else {
                 driverStatusTextView.text = resources.getString(R.string.offline)
-                firebaseHelper.deleteDriver()
+               // firebaseHelper.deleteDriver()
             }
         }
     }
@@ -115,7 +115,7 @@ class MapActivity : AppCompatActivity() {
                     locationFlag = false
                     animateCamera(latLng)
                 }
-                if (driverOnlineFlag) {
+               if (driverOnlineFlag) {
                     firebaseHelper.updateDriver(Driver(lat = latLng.latitude, lng = latLng.longitude))
                 }
                 showOrAnimateMarker(latLng)

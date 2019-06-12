@@ -21,11 +21,11 @@ class FirebaseHelper constructor(customerId: String) {
             .child(ONLINE_RIDERS)
             .child(uId.toString())
 
-    init {
-        onlineDriverDatabaseReference
-                .onDisconnect()
-               .removeValue()
-    }
+    //init {
+      //  onlineDriverDatabaseReference
+        //        .onDisconnect()
+          //     .removeValue()
+    //}
 
     fun updateDriver(driver: Driver) {
         onlineDriverDatabaseReference
@@ -33,8 +33,8 @@ class FirebaseHelper constructor(customerId: String) {
         Log.e("Customer Info", " Updated")
     }
 
-    fun deleteDriver() {
+    /*fun deleteDriver() {
         onlineDriverDatabaseReference
                 .removeValue()
-    }
+    }*/
 }

@@ -91,6 +91,8 @@ public class RecyclerView_Financial {
             this.key = key;
             mNameRestaurant.setText(cartInfo.getRestaurantName());
             mNameCustomer.setText(cartInfo.getCustomerName());
+            mDate.setText(date1);
+            mTime.setText(time1);
             Picasso.get()
                     .load(cartInfo.getRestaurantImage())
                     .placeholder(R.drawable.logo_restaurant)
