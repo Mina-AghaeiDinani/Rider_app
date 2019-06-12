@@ -52,6 +52,7 @@ public class RecyclerView_Orders {
         private String customerId;
         private String customerImage;
         private String orderId;
+        private String date1,time1;
         private String customerName;
         private String restaurantName;
         private DatabaseReference mRefCustomerLocation;
@@ -61,14 +62,14 @@ public class RecyclerView_Orders {
         public CartsItemView(ViewGroup parent) {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.pending_cooking_order_items, parent, false));
-            mNameRestaurant = itemView.findViewById(R.id.tvRestaurantName);
-            mNameCustomer = itemView.findViewById(R.id.tvCustomerName);
-            mImageCustomer = itemView.findViewById(R.id.imgCustomer);
-            mImageRestaurant = itemView.findViewById(R.id.imgRestaurant);
-            mDistance = itemView.findViewById(R.id.tvTotalDistance);
-            mFee = itemView.findViewById(R.id.tvTotalFee);
-            mTime = itemView.findViewById(R.id.tvTime);
-            mDate = itemView.findViewById(R.id.tvDate);
+            mNameRestaurant = itemView.findViewById(R.id.tvRestaurantName1);
+            mNameCustomer = itemView.findViewById(R.id.tvCustomerName1);
+            mImageCustomer = itemView.findViewById(R.id.imgCustomer1);
+            mImageRestaurant = itemView.findViewById(R.id.imgRestaurant1);
+            mDistance = itemView.findViewById(R.id.tvTotalDistance1);
+            mFee = itemView.findViewById(R.id.tvTotalFee1);
+            mTime = itemView.findViewById(R.id.tvTime1);
+            mDate = itemView.findViewById(R.id.tvDate1);
             //Item set click on it for open list
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,6 +83,8 @@ public class RecyclerView_Orders {
                     intent.putExtra("customerName", customerName);
                     intent.putExtra("customerId", customerId);
                     intent.putExtra("orderId", orderId);
+                    intent.putExtra("mDate", date1);
+                    intent.putExtra("mTime", time1);
                     mContext.startActivity(intent);
                 }
             });
@@ -97,9 +100,13 @@ public class RecyclerView_Orders {
             restaurantImage = cartInfo.getRestaurantImage();
             restaurantName = cartInfo.getRestaurantName();
             customerName = cartInfo.getCustomerName();
+            time1=cartInfo.getDate();
+            date1=cartInfo.getTime();
             this.key = key;
             mNameRestaurant.setText(cartInfo.getRestaurantName());
             mNameCustomer.setText(cartInfo.getCustomerName());
+            mDate.setText(date1);
+            mTime.setText(time1);
             Picasso.get()
                     .load(cartInfo.getRestaurantImage())
                     .placeholder(R.drawable.logo_restaurant)

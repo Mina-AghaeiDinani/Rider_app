@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="189 Km "
+                    android:text=" 0 Km "
                     android:textSize="17sp"
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="125 $ "
+                    android:text=" 0 $ "
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
         </LinearLayout>

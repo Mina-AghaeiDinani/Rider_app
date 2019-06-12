@@ -41,6 +41,7 @@ public class RecyclerView_Financial {
         private TextView mFee;
         private TextView mDate;
         private TextView mTime;
+        private String date1,time1;
         private String key;
         private String restaurantId;
         private String restaurantImage;
@@ -56,14 +57,14 @@ public class RecyclerView_Financial {
         public CartsItemView(ViewGroup parent) {
             super(LayoutInflater.from(mContext).
                     inflate(R.layout.pending_cooking_order_items, parent, false));
-            mNameRestaurant = itemView.findViewById(R.id.tvRestaurantName);
-            mNameCustomer = itemView.findViewById(R.id.tvCustomerName);
-            mImageCustomer = itemView.findViewById(R.id.imgCustomer);
-            mImageRestaurant = itemView.findViewById(R.id.imgRestaurant);
-            mDistance = itemView.findViewById(R.id.tvTotalDistance);
-            mFee = itemView.findViewById(R.id.tvTotalFee);
-            mTime = itemView.findViewById(R.id.tvTime);
-            mDate = itemView.findViewById(R.id.tvDate);
+            mNameRestaurant = itemView.findViewById(R.id.tvRestaurantName1);
+            mNameCustomer = itemView.findViewById(R.id.tvCustomerName1);
+            mImageCustomer = itemView.findViewById(R.id.imgCustomer1);
+            mImageRestaurant = itemView.findViewById(R.id.imgRestaurant1);
+            mDistance = itemView.findViewById(R.id.tvTotalDistance1);
+            mFee = itemView.findViewById(R.id.tvTotalFee1);
+            mTime = itemView.findViewById(R.id.tvTime1);
+            mDate = itemView.findViewById(R.id.tvDate1);
             //Item set click on it for open list
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,6 +86,8 @@ public class RecyclerView_Financial {
             restaurantImage = cartInfo.getRestaurantImage();
             restaurantName = cartInfo.getRestaurantName();
             customerName = cartInfo.getCustomerName();
+            time1=cartInfo.getDate();
+            date1=cartInfo.getTime();
             this.key = key;
             mNameRestaurant.setText(cartInfo.getRestaurantName());
             mNameCustomer.setText(cartInfo.getCustomerName());

@@ -14,20 +14,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/tvDate"
+            android:id="@+id/tvDate1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/tvTime"
+            android:layout_toLeftOf="@+id/tvTime1"
             android:textColor="@color/colorBlack"
             android:fontFamily="serif"
             android:textSize="15sp"
             android:layout_marginTop="3dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginStart="5dp"
             android:text="23 may 2015  "
             />
         <TextView
-            android:id="@+id/tvTime"
+            android:id="@+id/tvTime1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
@@ -42,7 +43,7 @@
             />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgRestaurant"
+            android:id="@+id/imgRestaurant1"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_alignParentStart="true"
@@ -50,18 +51,18 @@
             android:padding="5dp"
             android:src="@drawable/logo_restaurant" />
         <TextView
-            android:id="@+id/tvRestaurantName"
+            android:id="@+id/tvRestaurantName1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginStart="5dp"
-            android:layout_toRightOf="@+id/imgRestaurant"
+            android:layout_toRightOf="@+id/imgRestaurant1"
             android:fontFamily="sans-serif-black"
             android:text="Shab Neshin"
             android:textColor="@color/colorBlack"
             android:textSize="15sp" />
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgCustomer"
+            android:id="@+id/imgCustomer1"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginTop="20dp"
@@ -69,12 +70,12 @@
             android:padding="5dp"
             android:src="@drawable/customer_unknown" />
         <TextView
-            android:id="@+id/tvCustomerName"
+            android:id="@+id/tvCustomerName1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
             android:layout_marginEnd="5dp"
-            android:layout_toLeftOf="@+id/imgCustomer"
+            android:layout_toLeftOf="@+id/imgCustomer1"
             android:fontFamily="sans-serif-black"
             android:text="Mina aghaei Dinani"
             android:textColor="@color/colorBlack"
@@ -83,10 +84,10 @@
 
 
         <TextView
-        android:id="@+id/tvDistance"
+        android:id="@+id/tvDistance1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgRestaurant"
+        android:layout_below="@+id/imgRestaurant1"
         android:textColor="@color/colorBlack"
         android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-black"
@@ -97,15 +98,15 @@
 
 
         <TextView
-        android:id="@+id/tvTotalDistance"
+        android:id="@+id/tvTotalDistance1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/tvDistance"
+        android:layout_toEndOf="@+id/tvDistance1"
         android:textColor="@color/colorPrimaryDark"
         android:fontFamily="sans-serif-black"
         android:textSize="15sp"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/imgRestaurant"
+        android:layout_below="@+id/imgRestaurant1"
         android:layout_marginStart="1dp"
         android:text="3.5 Km "
         />
@@ -113,17 +114,17 @@
             android:id="@+id/tvFee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/tvTotalDistance"
+            android:layout_toEndOf="@+id/tvTotalDistance1"
             android:textColor="@color/colorBlack"
             android:fontFamily="sans-serif-black"
             android:textSize="15sp"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/imgRestaurant"
+            android:layout_below="@+id/imgRestaurant1"
             android:layout_marginStart="15dp"
             android:text="Fee:  "
             />
         <TextView
-            android:id="@+id/tvTotalFee"
+            android:id="@+id/tvTotalFee1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/tvFee"
@@ -131,7 +132,7 @@
             android:fontFamily="sans-serif-black"
             android:textSize="15sp"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/imgRestaurant"
+            android:layout_below="@+id/imgRestaurant1"
             android:layout_marginStart="1dp"
             android:text="6.5 $  "
             />

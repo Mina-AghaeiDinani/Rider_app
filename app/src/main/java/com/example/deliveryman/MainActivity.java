@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity
         }
         if (id == R.id.nav_orders) {
 
-            startActivity(new Intent(MainActivity.this, RatingActivity.class));
+            startActivity(new Intent(MainActivity.this, PendingCookingOrdersActivity.class));
 
         }
 

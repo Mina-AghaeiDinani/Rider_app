@@ -7,7 +7,7 @@ public class CartInfo {
     private String restaurantId, restaurantName, restaurantImage, restaurantComment;
     private String riderId, riderName, riderImage;
     private String status, orderedId;
-    private String totalPrice, totalItems;
+    private String totalPrice, totalItems, date, time;
 
 
     public CartInfo() {
@@ -18,8 +18,10 @@ public class CartInfo {
             , String riderId, String riderName, String riderImage
             , String customerId, String customerName, String customerImage
             , String restaurantId, String restaurantName, String restaurantImage, String restaurantComment
-            , String totalItems, String totalPrice) {
-
+            , String totalItems, String totalPrice
+            , String date, String time) {
+        this.time=time;
+        this.date=date;
         this.restaurantId = restaurantId;
         this.restaurantImage = restaurantImage;
         this.restaurantName = restaurantName;
@@ -35,6 +37,22 @@ public class CartInfo {
         this.totalItems = totalItems;
         this.totalPrice = totalPrice;
 
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getRiderId() {

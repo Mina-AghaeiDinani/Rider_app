@@ -97,6 +97,7 @@ public class NavigateActivity extends AppCompatActivity implements OnMapReadyCal
     TextView tvRestaurantName,tvCustomerName,tvDistance,tvFee,tvDate,tvTime;
     ImageView imgCustomer,imgRestaurant;
     FirebaseAuth firebaseAuth;
+    String mDate,mTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +110,7 @@ public class NavigateActivity extends AppCompatActivity implements OnMapReadyCal
         //Defines Views
         tvRestaurantName=findViewById(R.id.tvResName);
         tvCustomerName=findViewById(R.id.tvCusName);
-        tvDate=findViewById(R.id.tvDate);
+        tvDate=findViewById(R.id.tvDateNav);
         tvDistance=findViewById(R.id.tvTotalDistanceNav);
         tvTime=findViewById(R.id.tvTimeNav);
         tvFee=findViewById(R.id.tvTotalFeeNav);
@@ -125,9 +126,13 @@ public class NavigateActivity extends AppCompatActivity implements OnMapReadyCal
         restaurantImage=getIntent().getStringExtra("restaurantImage");
         restaurantName=getIntent().getStringExtra("restaurantName");
         customerName=getIntent().getStringExtra("customerName");
+        mDate=getIntent().getStringExtra("mDate");
+        mTime=getIntent().getStringExtra("mTime");
         //Assign values to each view
         tvCustomerName.setText(customerName);
         tvRestaurantName.setText(restaurantName);
+        tvDate.setText(mDate);
+        tvTime.setText(mTime);
         Picasso.get()
                 .load(restaurantImage)
                 .placeholder(R.drawable.logo_restaurant)
