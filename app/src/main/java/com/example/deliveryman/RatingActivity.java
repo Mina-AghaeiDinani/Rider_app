@@ -56,11 +56,15 @@ public class RatingActivity extends AppCompatActivity {
                             int newnumCustomerOpinion = numCustomerOpinion+1;
                             float newrating = restaurantsProfile.getRating();
                             newrating = (newrating*numCustomerOpinion + getrating)/newnumCustomerOpinion;
-                            databaseOrder.child("numCustomerOpinion").setValue(numCustomerOpinion);
+                            databaseOrder.child("numCustomerOpinion").setValue(newnumCustomerOpinion);
                             databaseOrder.child("rating").setValue(newrating);
+                            restaurantsProfile.setRating(newrating);
+                            restaurantsProfile.setNumCustomerOpinion(newnumCustomerOpinion);
                         }else{
-                            databaseOrder.child("NumCustomerOpinion").setValue(1);
+                            databaseOrder.child("numCustomerOpinion").setValue(1);
                             databaseOrder.child("rating").setValue(getrating);
+                            restaurantsProfile.setRating(getrating);
+                            restaurantsProfile.setNumCustomerOpinion(1);
                         }
                     }
 

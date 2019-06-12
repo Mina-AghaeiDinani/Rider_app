@@ -3,8 +3,8 @@ package com.example.deliveryman;
 public class RiderProfile {
     //Property name must be the same as what we defined in real time database
     private String name, phone, email ,shortdescription,imageUrl;
-    private int numCustomerOpinion;
     private float rating;
+    private int numCustomerOpinion;
     public RiderProfile() {
         //Constructor , it is needed
     }
@@ -13,6 +13,8 @@ public class RiderProfile {
                         String imageUrl,int numCustomerOpinion, float rating) {
         this.phone = phone;
         this.imageUrl = imageUrl;
+        this.rating = 0;
+        this.numCustomerOpinion = 0;
         this.name = name;
         this.email = email;
         if (shortdescription.trim().equals("")) {
@@ -21,20 +23,20 @@ public class RiderProfile {
 
     }
 
-    public int getNumCustomerOpinion() {
-        return numCustomerOpinion;
-    }
-
-    public void setNumCustomerOpinion(int numCustomerOpinion) {
-        this.numCustomerOpinion = numCustomerOpinion;
-    }
-
     public float getRating() {
         return rating;
     }
 
+    public int getNumCustomerOpinion() {
+        return numCustomerOpinion;
+    }
+
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public void setNumCustomerOpinion(int numCustomerOpinion) {
+        this.numCustomerOpinion = numCustomerOpinion;
     }
 
     public String getName() {
